@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 
-function App() {
+import Header from './components/Header';
+import Home from './pages/Home';
+import Details from './pages/Details';
+import NotFound from './pages/NotFound';
+import { Main } from './components/Main';
+
+const App = () => {
+  const [countries, setCountries] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Main>
+        <Routes>
+          <Route path="/" element={<Home countries={countries} setCountries={setCountries} />} />
+          <Route path="/not-found" element={<NotFound />} />
+          <Route path="/country/:name" element={<Details />} />
+        </Routes>
+      </Main>
+    </>
   );
-}
+};
 
 export default App;
